@@ -2,7 +2,7 @@
     <div class="main">
         <div class="main-add_friend">
             <button 
-                @click="addInput" 
+                @click="mainStore.addInputProd" 
                 type="button" 
                 class="btn btn-light main-add_friend-btn">
                 Добавить продукт
@@ -10,15 +10,15 @@
         </div>
         <ul 
             class="list-group"
-            v-for="(product, index) in products.length">
+            v-for="(product, index) in mainStore.products">
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
                         <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
                     </svg>
-                    <input type="text" class="form-control input-name" placeholder="Название">
-                    <input type="text" class="form-control" placeholder="Цена">
-                    <button @click="deleteInput(index)" class="delete_btn">Удалить</button>
+                    <input type="text" class="form-control input-name" placeholder="Название" v-model="product.name">
+                    <input type="text" class="form-control" placeholder="Цена" v-model="product.price">
+                    <button @click="mainStore.deleteInputProd(index)" class="delete_btn">Удалить {{ index }}</button>
                 </div>
             </li>
         </ul>
@@ -26,7 +26,7 @@
             <button
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
-                v-show="products.length">
+                v-show="mainStore.products.length">
                 Рассчитать   
             </button>
         </RouterLink>
@@ -34,18 +34,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useMainStore } from '../stores/MainStore'
 
-const products = ref([])
-
-function addInput() {
-    products.value.push('')
-}
-function deleteInput(index) {
-    console.log(index)
-    console.log(friends.value)
-    products.value.splice(index, 1)
-}
+const mainStore = useMainStore();
 </script>
 
 <style lang="scss" scoped>

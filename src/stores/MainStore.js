@@ -2,12 +2,25 @@ import {defineStore} from 'pinia'
 
 export const useMainStore = defineStore('MainStore', {
     state: () => ({
-        friends: []
+        friends: [],
+        products: [],
     }),
-    getters: {
-
-    },
     actions: {
-        
+        addInputFriend() {
+            this.friends.push('')
+        },
+        deleteInputFriend(index) {
+            this.friends.splice(index, 1)
+        },
+
+        addInputProd() {
+            this.products.push({
+                name: '',
+                price: ''
+            })
+        },
+        deleteInputProd(index) {
+            this.products.splice(index, 1)
+        }
     }
 })
