@@ -5,50 +5,46 @@
                 @click="addInput" 
                 type="button" 
                 class="btn btn-light main-add_friend-btn">
-                Добавить человека
+                Добавить продукт
             </button>
         </div>
         <ul 
             class="list-group"
-            v-for="(friend, index) in friends.length">
+            v-for="(product, index) in products.length">
             <li class="list-group-item" style="margin-bottom: 10px">
-                <div class="input-group" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                <div class="input-group mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
+                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
                     </svg>
-                    <input type="text" class="form-control" v-model="friends[index]">
+                    <input type="text" class="form-control input-name" placeholder="Название">
+                    <input type="text" class="form-control" placeholder="Цена">
                     <button @click="deleteInput(index)" class="delete_btn">Удалить</button>
                 </div>
             </li>
         </ul>
-        <RouterLink to="/products">
+        <RouterLink to="/bills">
             <button
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
-                v-show="friends.length">
-                Далее   
+                v-show="products.length">
+                Рассчитать   
             </button>
         </RouterLink>
     </div>
 </template>
 
 <script setup>
-import { useMainStore } from '../stores/MainStore'
 import { ref } from 'vue'
 
-
-const mainStore = useMainStore();
-const friends = ref([])
-
+const products = ref([])
 
 function addInput() {
-    friends.value.push('')
+    products.value.push('')
 }
 function deleteInput(index) {
     console.log(index)
     console.log(friends.value)
-    friends.value.splice(index, 1)
+    products.value.splice(index, 1)
 }
 </script>
 
@@ -79,18 +75,20 @@ function deleteInput(index) {
         }
     }
 }
-.bi-person-circle{
+.bi-basket3{
     color: #B3A394;
     margin: 5px;
     margin-right: 15px;
 }
 .form-control{
     border-color: #B3A394;
-    border-radius: 5px 0 0 5px !important;
     &:focus{
         border-color: #B3A394;
         box-shadow: 0 0 0 0.1rem #B3A394;
     }
+}
+.input-name{
+    border-radius: 5px 0 0 5px !important;
 }
 .delete_btn{
     background-color: #B3A394;
