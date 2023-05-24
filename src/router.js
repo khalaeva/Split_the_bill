@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HelloWorld from './components/HelloWorld.vue'
+import main from './components/main.vue'
 
 const router = createRouter({
     history: createWebHistory(), 
@@ -8,7 +8,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HelloWorld
+            component: main
         }
     ]
 })
