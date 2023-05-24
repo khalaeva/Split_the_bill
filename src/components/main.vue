@@ -10,15 +10,15 @@
         </div>
         <ul 
             class="list-group"
-            v-for="i in counter">
+            v-for="(friend, index) in friends.length">
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                     </svg>
-                    <input type="text" class="form-control">
-                    <button class="delete_btn">Удалить</button>
+                    <input type="text" class="form-control" v-model="friends[index]">
+                    <button @click="deleteInput(index)" class="delete_btn">Удалить {{ index }}</button>
                 </div>
             </li>
         </ul>
@@ -31,10 +31,16 @@ import { ref } from 'vue'
 
 
 const mainStore = useMainStore();
-const counter = ref(0)
+const friends = ref([])
+
 
 function addInput() {
-    counter.value++
+    friends.value.push('')
+}
+function deleteInput(index) {
+    console.log(index)
+    console.log(friends.value)
+    friends.value.splice(index, 1)
 }
 </script>
 
