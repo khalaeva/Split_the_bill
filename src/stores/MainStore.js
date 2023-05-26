@@ -25,12 +25,17 @@ export const useMainStore = defineStore('MainStore', {
         addInputProd() {
             this.products.push({
                 name: '',
-                price: ''
+                price: '',
+                payPerson: this.friends[0],
+                eatPersons: [],
             })
-            this.whoPay.push(this.friends[0])
         },
         deleteInputProd(index) {
             this.products.splice(index, 1)
+        },
+
+        addEatPerson(friend, index) {
+            this.products[index].eatPersons.push(friend) //индекс не тот исправить
         }
     }
 })

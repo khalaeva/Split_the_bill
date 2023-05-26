@@ -12,7 +12,7 @@
             class="list-group"
             v-for="(product, index) in mainStore.products">
             <li class="list-group-item" style="margin-bottom: 10px">
-                <div class="input-group mb-3" style="margin: 5px 0 5px 0 !important">
+                <div class="input-group mb-3" style="margin: 5px 0 15px 0 !important">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
                         <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
                     </svg>
@@ -20,17 +20,33 @@
                     <input type="text" class="form-control" placeholder="Цена" v-model="product.price">
                     <button @click="mainStore.deleteInputProd(index)" class="delete_btn">Удалить</button>
                 </div>
-                <select class="form-select" v-model="mainStore.whoPay[index]">
-                    <option 
-                        v-for="friend in mainStore.friends" 
-                        :value="friend"
-                        >
-                        {{ friend }}
-                    </option>
-                </select>
-                <div class="array-friends">
-                    <div v-for="(friend, index) in mainStore.friends">
-                        <img v-if="mainStore.friends[index]" class="image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" alt="img" />
+                <div class="select">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16" preserveAspectRatio="none">
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                        <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
+                    </svg>
+                    <select class="form-select form-control" v-model="mainStore.products[index].payPerson">
+                        <option 
+                            v-for="friend in mainStore.friends" 
+                            :value="friend"
+                            >
+                            {{ friend }}
+                        </option>
+                    </select>
+                </div>
+                <div class="array-friends" >
+                    <div class="card array-friends-card">
+                        <img class="card-img-top image-person" :src="`https://icotar.com/initials/∞.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
+                        <div class="card-body array-friends-card-body">
+                          <span class="card-text">Все</span>
+                        </div>
+                    </div>
+                    <div class="card array-friends-card" v-for="(friend, index) in mainStore.friends" @click="mainStore.addEatPerson(friend, index)">
+                        <img v-if="!isActive" class="card-img-top image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
+                        <img v-else class="card-img-top image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=000000&fg=FFFFFF`" alt="Card image cap">
+                        <div class="card-body array-friends-card-body">
+                          <span class="card-text">{{ friend }}</span>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -48,11 +64,23 @@
 
 <script setup>
 import { useMainStore } from '../stores/MainStore'
+import { ref } from 'vue';
 
 const mainStore = useMainStore();
+const isActive = ref(0)
+
 </script>
 
 <style lang="scss" scoped>
+.bi-wallet-fill{
+    color: #B3A394;
+    margin: 5px 16px 5px 11px !important;
+}
+.select{
+    display: flex;
+    width: 50%;
+    margin-bottom: 15px;
+}
 .main {
     padding: 20px;
     border: 1px solid #CDD7D6;
@@ -86,12 +114,25 @@ const mainStore = useMainStore();
 }
 .array-friends{
     display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+    &-card{
+        background-color: #CDD7D6;
+        min-width: auto;
+        height: 90px;  
+        margin-right: 10px;
+        &-body{
+            padding: 0 5px 0 5px;
+            margin: 0 20px 0 20px;
+        }
+    }
 }
 .image-person{
     height: 45px;
     width: 45px;
+    margin: 5px auto;
     border-radius: 100% !important;
-    margin-right: 15px;
 }
 .form-control{
     border-color: #B3A394;
