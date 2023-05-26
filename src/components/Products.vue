@@ -18,7 +18,7 @@
                     </svg>
                     <input type="text" class="form-control input-name" placeholder="Название" v-model="product.name">
                     <input type="text" class="form-control" placeholder="Цена" v-model="product.price">
-                    <button @click="mainStore.deleteInputProd(index)" class="delete_btn">Удалить {{ index }}</button>
+                    <button @click="mainStore.deleteInputProd(index)" class="delete_btn">Удалить</button>
                 </div>
             </li>
         </ul>

@@ -13,10 +13,12 @@
             v-for="(friend, index) in mainStore.friends.length">
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <img v-if="mainStore.friends[index]" class="image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" alt="img" />
+                    <img v-else class="image-person" :src="'https://icotar.com/initials/~.svg?bg=B3A394'" alt="img" />
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
+                    </svg> -->
                     <input type="text" class="form-control" v-model="mainStore.friends[index]">
                     <button @click="mainStore.deleteInputFriend(index)" class="delete_btn">Удалить</button>
                 </div>
@@ -26,7 +28,8 @@
             <button
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
-                v-show="mainStore.friends.length">
+                v-show="mainStore.friends.length"
+                @click="mainStore.setFriends()">
                 Далее   
             </button>
         </RouterLink>
@@ -66,9 +69,10 @@ const mainStore = useMainStore();
         }
     }
 }
-.bi-person-circle{
-    color: #B3A394;
-    margin: 5px;
+.image-person{
+    height: 45px;
+    width: 45px;
+    border-radius: 100% !important;
     margin-right: 15px;
 }
 .form-control{
