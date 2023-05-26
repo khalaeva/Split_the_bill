@@ -12,13 +12,26 @@
             class="list-group"
             v-for="(product, index) in mainStore.products">
             <li class="list-group-item" style="margin-bottom: 10px">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" style="margin: 5px 0 5px 0 !important">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
                         <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
                     </svg>
                     <input type="text" class="form-control input-name" placeholder="Название" v-model="product.name">
                     <input type="text" class="form-control" placeholder="Цена" v-model="product.price">
                     <button @click="mainStore.deleteInputProd(index)" class="delete_btn">Удалить</button>
+                </div>
+                <select class="form-select" v-model="mainStore.whoPay[index]">
+                    <option 
+                        v-for="friend in mainStore.friends" 
+                        :value="friend"
+                        >
+                        {{ friend }}
+                    </option>
+                </select>
+                <div class="array-friends">
+                    <div v-for="(friend, index) in mainStore.friends">
+                        <img v-if="mainStore.friends[index]" class="image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" alt="img" />
+                    </div>
                 </div>
             </li>
         </ul>
@@ -69,6 +82,15 @@ const mainStore = useMainStore();
 .bi-basket3{
     color: #B3A394;
     margin: 5px;
+    margin-right: 15px;
+}
+.array-friends{
+    display: flex;
+}
+.image-person{
+    height: 45px;
+    width: 45px;
+    border-radius: 100% !important;
     margin-right: 15px;
 }
 .form-control{

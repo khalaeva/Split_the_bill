@@ -4,6 +4,7 @@ export const useMainStore = defineStore('MainStore', {
     state: () => ({
         friends: [],
         products: [],
+        whoPay: []
     }),
     actions: {
         addInputFriend() {
@@ -26,7 +27,7 @@ export const useMainStore = defineStore('MainStore', {
                 name: '',
                 price: ''
             })
-            console.log(this.products)
+            this.whoPay.push(this.friends[0])
         },
         deleteInputProd(index) {
             this.products.splice(index, 1)
