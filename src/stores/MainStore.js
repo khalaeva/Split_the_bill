@@ -4,7 +4,8 @@ export const useMainStore = defineStore('MainStore', {
     state: () => ({
         friends: [],
         products: [],
-        whoPay: []
+        whoPay: [],
+        class: 'card array-friends-card'
     }),
     actions: {
         addInputFriend() {
@@ -13,13 +14,12 @@ export const useMainStore = defineStore('MainStore', {
         deleteInputFriend(index) {
             this.friends.splice(index, 1)
         },
-        setFriends() {
+        setFriends() { // удаляем незаполненные поля
             this.friends.forEach(function(item, index, array) {
                 if (item === '') {
                     array.splice(index, 1)
                 }   
             });
-            console.log(this.friends)
         },
 
         addInputProd() {
@@ -35,7 +35,10 @@ export const useMainStore = defineStore('MainStore', {
         },
 
         addEatPerson(friend, index) {
-            this.products[index].eatPersons.push(friend) //индекс не тот исправить
-        }
+            this.products[index].eatPersons.push(friend) 
+        },
+        addAllEatPersons(index) {
+            this.products[index].eatPersons.push(this.friends) 
+        },
     }
 })
