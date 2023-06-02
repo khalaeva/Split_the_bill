@@ -9,22 +9,22 @@
         </div>
         <ul 
             class="list-group"
-            v-for="(friend, index) in mainStore.friends.length">
+            v-for="(person, index) in mainStore.who">
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group" >
-                    <img v-if="mainStore.friends[index]" class="image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" alt="img" />
-                    <img v-else class="image-person" :src="'https://icotar.com/initials/~.svg?bg=B3A394'" alt="img" />
-                    <input type="text" class="form-control" v-model="mainStore.friends[index]">
-                    <button @click="mainStore.deleteInputFriend(index)" class="delete_btn">Удалить</button>
+                    <p>{{ index }} должен {{ person }}</p>
                 </div>
             </li>
         </ul>
-        <button
-            type="button" 
-            class="btn btn-light bills-add_friend-btn"
-            @click="mainStore.getResult()">
-            Далее   
-        </button>
+        <ul 
+            class="list-group"
+            v-for="(person, index) in mainStore.whom">
+            <li class="list-group-item" style="margin-bottom: 10px">
+                <div class="input-group" >
+                    <p>{{ index }} должны {{ person }}</p>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 

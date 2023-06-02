@@ -2,17 +2,16 @@
     <div class="main">
         <div class="main-add_friend">
             <button 
-                @click="mainStore.addInputProd(); 
-                isActiveArray.push(Array(mainStore.friends.length).fill(false));
-                AllIsActive.push(false)" 
+                @click="mainStore.addInputProd()" 
                 type="button" 
-                class="btn btn-light main-add_friend-btn">
-                Добавить продукт
+                class="btn btn-light main-add_friend-btn"
+                >Добавить продукт
             </button>
         </div>
         <ul 
             class="list-group"
-            v-for="(product, indexProd) in mainStore.products">
+            v-for="(product, indexProd) in mainStore.products"
+            >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group mb-3" style="margin: 5px 0 15px 0 !important">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
@@ -38,33 +37,37 @@
                 </div>
                 <div class="array-friends">
                     <div 
-                        :class="[AllIsActive[indexProd] ? 'card array-friends-card active' : 'card array-friends-card']" 
-                        @click="mainStore.addAllEatPersons(indexProd); 
-                        AllIsActive[indexProd] = !AllIsActive[indexProd];
-                        AllIsActive[indexProd] ? isActiveArray[indexProd] = isActiveArray[indexProd].map(item => item = true) : isActiveArray[indexProd] = isActiveArray[indexProd].map(item => item = false);
-                        console.log(isActiveArray[indexProd])">
-                        <img class="card-img-top image-person" :src="`https://icotar.com/initials/∞.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
-                        <div class="card-body array-friends-card-body">
-                          <span :class="[AllIsActive[indexProd] ? 'card-text active-text' : 'card-text']">Все</span>
-                        </div>
+                        class="card array-friends-card" 
+                        @click="mainStore.addAllEatPersons(indexProd)" 
+                        :style="[mainStore.friends.length === mainStore.products[indexProd].eatPersons.length ? 'background-color: #102542; color: #FFFFFF;' : '']"
+                        >
+                            <img class="card-img-top image-person" :src="`https://icotar.com/initials/∞.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
+                            <div class="card-body array-friends-card-body">
+                            <span class="card-text">Все</span>
+                            </div>
                     </div>
-                    <div 
-                        :class="[isActiveArray[indexProd][index] ? 'card array-friends-card active' : 'card array-friends-card']" 
+                    <label 
+                        class="custom-checkbox" 
                         v-for="(friend, index) in mainStore.friends" 
-                        @click="mainStore.addEatPerson(friend, indexProd); 
-                        isActiveArray[indexProd][index] = !isActiveArray[indexProd][index]">
-                        <img class="card-img-top image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
-                        <div class="card-body array-friends-card-body">
-                          <span 
-                          :class="[isActiveArray[indexProd][index] ? 'card-text active-text' : 'card-text']"
-                          >{{ friend }}</span>
-                        </div>
-                    </div>
+                        >
+                        <input 
+                            type="checkbox" 
+                            :value="friend" 
+                            v-model="mainStore.products[indexProd].eatPersons"
+                            >
+                        <div class="card array-friends-card">
+                            <img class="card-img-top image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=FFFFFF&fg=000000`" alt="Card image cap">
+                            <div class="card-body array-friends-card-body">
+                                <span>{{ friend }}</span>
+                            </div>
+                        </div>  
+                    </label>
                 </div>
             </li>
         </ul>
         <RouterLink to="/bills">
             <button
+                @click="mainStore.getResult();"
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
                 v-show="mainStore.products.length">
@@ -76,14 +79,20 @@
 
 <script setup>
 import { useMainStore } from '../stores/MainStore'
-import { ref } from 'vue';
 
 const mainStore = useMainStore();
-const isActiveArray = ref([]);
-const AllIsActive = ref([])
 </script>
 
 <style lang="scss" scoped>
+.custom-checkbox>input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.custom-checkbox>input:checked + .array-friends-card{
+    background-color: #102542;
+    color: #FFFFFF;
+}
 .bi-wallet-fill{
     color: #B3A394;
     margin: 5px 16px 5px 11px !important;
@@ -138,12 +147,6 @@ const AllIsActive = ref([])
             padding: 0 5px 0 5px;
             margin: 0 20px 0 20px;
         }
-    }
-}
-.active{
-    background-color: #102542;
-    &-text{
-        color: #FFFFFF;
     }
 }
 .image-person{
