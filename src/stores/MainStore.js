@@ -83,7 +83,6 @@ export const useMainStore = defineStore('MainStore', {
                     }
                 }
             }
-            console.log(this.who)
         }
     }
 })
