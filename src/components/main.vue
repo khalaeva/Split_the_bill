@@ -26,7 +26,7 @@
                 class="btn btn-light main-add_friend-btn"
                 v-show="mainStore.friends.length"
                 @click="mainStore.setFriends()">
-                Далее   
+                Перейти к продуктам   
             </button>
         </RouterLink>
     </div>

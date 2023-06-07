@@ -25,7 +25,7 @@ export const useMainStore = defineStore('MainStore', {
         addInputProd() {
             this.products.push({
                 name: '',
-                price: 0,
+                price: null,
                 payPerson: this.friends[0],
                 eatPersons: []
             });
@@ -83,6 +83,7 @@ export const useMainStore = defineStore('MainStore', {
                     }
                 }
             }
+            console.log(this.who)
         }
     }
 })
