@@ -50,7 +50,7 @@ export const useMainStore = defineStore('MainStore', {
             for (let i in this.products) {
                 const summ = this.products[i].price / this.products[i].eatPersons.length            //делим полную сумму продукта на "едаков"
                 for (let j in this.products[i].eatPersons) {
-                    this.who[this.products[i].eatPersons[j]][this.products[i].payPerson] = summ         //записываем под каждый ключ this.who объекты вида {имя_друга: долг_ему}
+                        this.who[this.products[i].eatPersons[j]][this.products[i].payPerson] = summ     //записываем под каждый ключ this.who объекты вида {имя_друга: долг_ему}
                 }
             }
             for (let i in this.who){           //перебор по ключам this.who, пусть i = А
@@ -74,7 +74,6 @@ export const useMainStore = defineStore('MainStore', {
                 }
                 for (let n in this.who) {
                     if (i in this.who[n]) {
-                        console.log(i, n, this.who[i], this.who[n][i])
                         if (i in this.whom) {
                             this.whom[i][n] = this.who[n][i]
                         } else {
@@ -84,8 +83,6 @@ export const useMainStore = defineStore('MainStore', {
                     }
                 }
             }
-            console.log(this.who)
-            console.log(this.whom)
         }
     }
 })
