@@ -14,12 +14,9 @@ export const useMainStore = defineStore('MainStore', {
         deleteInputFriend(index) {
             this.friends.splice(index, 1)
         },
-        setFriends() { // удаляем незаполненные поля
-            this.friends.forEach(function(item, index, array) {
-                if (item === '') {
-                    array.splice(index, 1)
-                }   
-            });
+        setFriends() {
+            this.friends = this.friends.filter(name => name.length > 0)
+            return ((new Set(this.friends)).size !== this.friends.length)
         },
 
         addInputProd() {
@@ -53,21 +50,21 @@ export const useMainStore = defineStore('MainStore', {
                         this.who[this.products[i].eatPersons[j]][this.products[i].payPerson] = summ     //записываем под каждый ключ this.who объекты вида {имя_друга: долг_ему}
                 }
             }
-            for (let i in this.who){           //перебор по ключам this.who, пусть i = А
-                for (let j in this.who[i]) {            //перебор всех друзей кому должен А, пусть j = B
-                    for (let key in this.who[j]) {          //перебор всех друзей кому должен В
-                        if (key === i) {           //проверка на условие "должен ли В отдать долг А"
-                            if (this.who[i][j] > this.who[j][key]) {            // 1. если А должен В больше, чем В должен А 
-                                this.who[i][j] = this.who[i][j] - this.who[j][key]
-                                delete this.who[j][key]
+            for (let mainName in this.who){           //перебор по ключам this.who, пусть i = А
+                for (let creditor in this.who[mainName]) {            //перебор всех друзей кому должен А, пусть j = B
+                    for (let name in this.who[creditor]) {          //перебор всех друзей кому должен В
+                        if (name === mainName) {           //проверка на условие "должен ли В отдать долг А"
+                            if (this.who[mainName][creditor] > this.who[creditor][name]) {            // 1. если А должен В больше, чем В должен А 
+                                this.who[mainName][creditor] = this.who[mainName][creditor] - this.who[creditor][name]
+                                delete this.who[creditor][name]
                             }
-                            else if (this.who[j][key] > this.who[i][j]) {           // 2. если В должен А больше, чем А должен В
-                                this.who[j][key] = this.who[j][key] - this.who[i][j]
-                                delete this.who[i][j]
+                            else if (this.who[creditor][name] > this.who[mainName][creditor]) {           // 2. если В должен А больше, чем А должен В
+                                this.who[creditor][name] = this.who[creditor][name] - this.who[mainName][creditor]
+                                delete this.who[mainName][creditor]
                             }
                             else {        // 3. А и В должны друг другу одинаковую сумму
-                                delete this.who[i][j]
-                                delete this.who[j][key]
+                                delete this.who[mainName][creditor]
+                                delete this.who[creditor][name]
                             }
                         }
                     }
