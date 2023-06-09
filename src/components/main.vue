@@ -54,7 +54,12 @@ function ValidFriends() {
         alert('Вы ввели имя друга несколько раз!')
     }
     else {
-        this.$router.push({ name: 'products' })
+        if (mainStore.friends.length === 0) {
+            alert('Вы никого не добавили')
+        }
+        else {
+            this.$router.push({ name: 'products' })
+        }
     }
 }
 </script>
