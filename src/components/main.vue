@@ -31,7 +31,6 @@
                 </div>
             </li>
         </ul>
-        <!-- <RouterLink to="/products"> -->
             <button
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
@@ -40,14 +39,15 @@
                 >
                 Перейти к продуктам   
             </button>
-        <!-- </RouterLink> -->
     </div>
 </template>
 
 <script setup>
 import { useMainStore } from '../stores/MainStore'
+import { useRouter } from 'vue-router'
 
 const mainStore = useMainStore();
+const router = useRouter();
 
 function ValidFriends() {
     if (mainStore.setFriends()) {
@@ -58,7 +58,7 @@ function ValidFriends() {
             alert('Вы никого не добавили')
         }
         else {
-            this.$router.push({ name: 'products' })
+            router.push({ name: 'products' })
         }
     }
 }
