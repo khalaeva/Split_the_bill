@@ -50,8 +50,8 @@ export const useMainStore = defineStore('MainStore', {
                         this.who[this.products[i].eatPersons[j]][this.products[i].payPerson] = summ     //записываем под каждый ключ this.who объекты вида {имя_друга: долг_ему}
                 }
             }
-            for (let mainName in this.who){           //перебор по ключам this.who, пусть i = А
-                for (let creditor in this.who[mainName]) {            //перебор всех друзей кому должен А, пусть j = B
+            for (let mainName in this.who){           //перебор по ключам this.who, пусть mainName = А
+                for (let creditor in this.who[mainName]) {            //перебор всех друзей кому должен А, пусть creditor = B
                     for (let name in this.who[creditor]) {          //перебор всех друзей кому должен В
                         if (name === mainName) {           //проверка на условие "должен ли В отдать долг А"
                             if (this.who[mainName][creditor] > this.who[creditor][name]) {            // 1. если А должен В больше, чем В должен А 
@@ -69,13 +69,13 @@ export const useMainStore = defineStore('MainStore', {
                         }
                     }
                 }
-                for (let n in this.who) {
-                    if (i in this.who[n]) {
-                        if (i in this.whom) {
-                            this.whom[i][n] = this.who[n][i]
+                for (let n in this.who) { // Массив значений "Кому - кто"
+                    if (mainName in this.who[n]) {
+                        if (mainName in this.whom) {
+                            this.whom[mainName][n] = this.who[n][mainName]
                         } else {
-                            this.whom[i] = {}
-                            this.whom[i][n] = this.who[n][i]
+                            this.whom[mainName] = {}
+                            this.whom[mainName][n] = this.who[n][mainName]
                         }   
                     }
                 }

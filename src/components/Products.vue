@@ -101,12 +101,21 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useMainStore } from '../stores/MainStore'
 
+const router = useRouter()
 const mainStore = useMainStore();
 function isActive(id) {
     return mainStore.friends.length === mainStore.products[id].eatPersons.length
 }
+
+onMounted (() => {
+    if (mainStore.friends.length === 0) {
+        router.push({ name: 'home' })
+    }
+})
 </script>
 
 <style lang="scss" scoped>

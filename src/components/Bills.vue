@@ -62,11 +62,20 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useMainStore } from '../stores/MainStore'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const mainStore = useMainStore();
 const check = ref()
+
+onMounted (() => {
+    if (mainStore.friends.length === 0 || mainStore.products.length === 0) {
+        router.push({ name: 'home' })
+    }
+})
 </script>
 
 <style lang="scss" scoped>
