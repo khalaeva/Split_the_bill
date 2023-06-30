@@ -15,9 +15,7 @@
         >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group mb-3" style="margin: 5px 0 15px 0 !important">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
-                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
-                    </svg>
+                    <BasketIcon/>
                     <input 
                         type="text" 
                         class="form-control input-name" 
@@ -33,10 +31,7 @@
                     <button @click="mainStore.deleteInputProducts(indexProduct)" class="delete_btn">Удалить</button>
                 </div>
                 <div class="select">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16" preserveAspectRatio="none">
-                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                        <path d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z"/>
-                    </svg>
+                    <WalletIcon/>
                     <select 
                         class="form-select form-control" 
                         v-model="mainStore.products[indexProduct].payPerson"
@@ -103,7 +98,9 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useMainStore } from '../stores/MainStore'
+import { useMainStore } from '../stores/MainStore';
+import BasketIcon from './Icons/BasketIcon.vue';
+import WalletIcon from './Icons/WalletIcon.vue'
 
 const router = useRouter()
 const mainStore = useMainStore();
@@ -132,10 +129,6 @@ onMounted (() => {
     background-color: #102542;
     color: #FFFFFF;
 }
-.bi-wallet-fill{
-    color: #B3A394;
-    margin: 5px 16px 5px 11px !important;
-}
 .select{
     display: flex;
     width: 50%;
@@ -158,11 +151,6 @@ onMounted (() => {
             }
         }
     }
-}
-.bi-basket3{
-    color: #B3A394;
-    margin: 5px;
-    margin-right: 15px;
 }
 .array-friends{
     display: flex;
