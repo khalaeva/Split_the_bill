@@ -5,11 +5,24 @@
         </h1>
         <div class="form_toggle">
             <div class="form_toggle-item item-1">
-                <input id="fid-1" type="radio" name="radio" :value="false" v-model="check" checked>
+                <input 
+                    id="fid-1" 
+                    type="radio" 
+                    name="radio" 
+                    :value="false" 
+                    v-model="check" 
+                    checked
+                >
                 <label for="fid-1">Кто - кому</label>
             </div>
             <div class="form_toggle-item item-2">
-                <input id="fid-2" type="radio" name="radio" :value="true" v-model="check">
+                <input 
+                    id="fid-2" 
+                    type="radio" 
+                    name="radio" 
+                    :value="true" 
+                    v-model="check"
+                >
                 <label for="fid-2">Кому - кто</label>
             </div>
         </div>
@@ -28,7 +41,8 @@
         </ul>
         <ul v-show="check"
             class="list-group"
-            v-for="(person, index) in mainStore.whom">
+            v-for="(person, index) in mainStore.whom"
+        >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group">
                     <h5 style="color: #102542">Пользователю {{ index }} должны</h5>
@@ -48,11 +62,20 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useMainStore } from '../stores/MainStore'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const mainStore = useMainStore();
 const check = ref()
+
+onMounted (() => {
+    if (mainStore.friends.length === 0 || mainStore.products.length === 0) {
+        router.push({ name: 'home' })
+    }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -118,14 +141,6 @@ const check = ref()
     color: #FFFFFF;
 }
 .bills {
-    padding: 20px;
-    border: 1px solid #CDD7D6;
-    border-radius: 10px;
-    background-color: #CDD7D6;
-    width: 70%;
-    min-width: 900px;
-    margin: auto;
-    margin-top: 50px;
     &-text{
         background-color: #FFFFFF;
         border-radius: 10px;

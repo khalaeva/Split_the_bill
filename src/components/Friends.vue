@@ -4,50 +4,68 @@
             <button 
                 @click="mainStore.addInputFriend()" 
                 type="button" 
-                class="btn btn-light main-add_friend-btn">
+                class="btn btn-light main-add_friend-btn"
+            >
                 Добавить человека
             </button>
         </div>
         <ul 
             class="list-group"
-            v-for="(friend, index) in mainStore.friends.length">
+            v-for="(friend, index) in mainStore.friends.length"
+        >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group" >
-                    <img v-if="mainStore.friends[index]" class="image-person" :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" alt="img" />
-                    <img v-else class="image-person" :src="'https://icotar.com/initials/~.svg?bg=B3A394'" alt="img" />
+                    <img 
+                        v-if="mainStore.friends[index]" 
+                        class="image-person" 
+                        :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" 
+                        alt="img" 
+                    />
+                    <img 
+                        v-else class="image-person" 
+                        :src="'https://icotar.com/initials/~.svg?bg=B3A394'" 
+                        alt="img" 
+                    />
                     <input type="text" class="form-control" v-model="mainStore.friends[index]">
                     <button @click="mainStore.deleteInputFriend(index)" class="delete_btn">Удалить</button>
                 </div>
             </li>
         </ul>
-        <RouterLink to="/products">
             <button
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
                 v-show="mainStore.friends.length"
-                @click="mainStore.setFriends()">
+                @click="validateFriends()"
+            >
                 Перейти к продуктам   
             </button>
-        </RouterLink>
     </div>
 </template>
 
 <script setup>
 import { useMainStore } from '../stores/MainStore'
+import { useRouter } from 'vue-router'
 
 const mainStore = useMainStore();
+const router = useRouter();
+
+function validateFriends() {
+    if (mainStore.setFriends()) {
+        alert('Вы ввели имя друга несколько раз!')
+    }
+    else {
+        if (mainStore.friends.length === 0) {
+            alert('Вы никого не добавили')
+        }
+        else {
+            router.push({ name: 'products' })
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
 .main {
-    padding: 20px;
-    border: 1px solid #CDD7D6;
-    border-radius: 10px;
-    background-color: #CDD7D6;
-    width: 70%;
-    min-width: 900px;
-    margin: auto;
-    margin-top: 50px;
     &-add_friend{
         display: grid;
         &-btn{

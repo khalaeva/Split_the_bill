@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Products from './components/Products.vue'
-import Main from './components/Main.vue'
+import Friends from './components/Friends.vue'
 import Bills from './components/Bills.vue'
 
 const router = createRouter({
@@ -10,7 +10,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: Main
+            component: Friends
         },
         {
             path: '/products',
