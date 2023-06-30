@@ -2,17 +2,17 @@
     <div class="main">
         <div class="main-add_friend">
             <button 
-                @click="mainStore.addInputProd()" 
+                @click="mainStore.addInputProducts()" 
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
-                >
+            >
                 Добавить продукт
             </button>
         </div>
         <ul 
             class="list-group"
-            v-for="(product, indexProd) in mainStore.products"
-            >
+            v-for="(product, indexProduct) in mainStore.products"
+        >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group mb-3" style="margin: 5px 0 15px 0 !important">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
@@ -23,14 +23,14 @@
                         class="form-control input-name" 
                         placeholder="Название" 
                         v-model="product.name"
-                        >
+                    >
                     <input 
                         type="number" 
                         class="form-control" 
                         placeholder="Цена" 
                         v-model="product.price"
-                        >
-                    <button @click="mainStore.deleteInputProd(indexProd)" class="delete_btn">Удалить</button>
+                    >
+                    <button @click="mainStore.deleteInputProducts(indexProduct)" class="delete_btn">Удалить</button>
                 </div>
                 <div class="select">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16" preserveAspectRatio="none">
@@ -39,12 +39,12 @@
                     </svg>
                     <select 
                         class="form-select form-control" 
-                        v-model="mainStore.products[indexProd].payPerson"
-                        >
+                        v-model="mainStore.products[indexProduct].payPerson"
+                    >
                         <option  
                             v-for="friend in mainStore.friends" 
                             :value="friend"
-                            >
+                        >
                             {{ friend }}
                         </option>
                     </select>
@@ -52,14 +52,14 @@
                 <div class="array-friends">
                     <div 
                         class="card array-friends-card" 
-                        :class="{ active: isActive(indexProd) }"
-                        @click="mainStore.addAllEatPersons(indexProd)" 
-                        >
+                        :class="{ active: isActive(indexProduct) }"
+                        @click="mainStore.addAllEatPersons(indexProduct)" 
+                    >
                             <img 
                                 class="card-img-top image-person" 
                                 :src="`https://icotar.com/initials/∞.svg?bg=FFFFFF&fg=000000`" 
                                 alt="Card image cap"
-                                >
+                            >
                             <div class="card-body array-friends-card-body">
                             <span class="card-text">Все</span>
                             </div>
@@ -67,18 +67,18 @@
                     <label 
                         class="custom-checkbox" 
                         v-for="(friend, index) in mainStore.friends" 
-                        >
+                    >
                         <input 
                             type="checkbox" 
                             :value="friend" 
-                            v-model="mainStore.products[indexProd].eatPersons"
-                            >
+                            v-model="mainStore.products[indexProduct].eatPersons"
+                        >
                         <div class="card array-friends-card">
                             <img 
                                 class="card-img-top image-person" 
                                 :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=FFFFFF&fg=000000`" 
                                 alt="Card image cap"
-                                >
+                            >
                             <div class="card-body array-friends-card-body">
                                 <span>{{ friend }}</span>
                             </div>

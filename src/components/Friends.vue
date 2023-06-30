@@ -5,14 +5,14 @@
                 @click="mainStore.addInputFriend()" 
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
-                >
+            >
                 Добавить человека
             </button>
         </div>
         <ul 
             class="list-group"
             v-for="(friend, index) in mainStore.friends.length"
-            >
+        >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group" >
                     <img 
@@ -20,12 +20,12 @@
                         class="image-person" 
                         :src="`https://icotar.com/initials/${mainStore.friends[index]}.svg?bg=B3A394`" 
                         alt="img" 
-                        />
+                    />
                     <img 
                         v-else class="image-person" 
                         :src="'https://icotar.com/initials/~.svg?bg=B3A394'" 
                         alt="img" 
-                        />
+                    />
                     <input type="text" class="form-control" v-model="mainStore.friends[index]">
                     <button @click="mainStore.deleteInputFriend(index)" class="delete_btn">Удалить</button>
                 </div>
@@ -35,8 +35,8 @@
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
                 v-show="mainStore.friends.length"
-                @click="ValidFriends()"
-                >
+                @click="validateFriends()"
+            >
                 Перейти к продуктам   
             </button>
     </div>
@@ -49,7 +49,7 @@ import { useRouter } from 'vue-router'
 const mainStore = useMainStore();
 const router = useRouter();
 
-function ValidFriends() {
+function validateFriends() {
     if (mainStore.setFriends()) {
         alert('Вы ввели имя друга несколько раз!')
     }

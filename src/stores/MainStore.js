@@ -19,7 +19,7 @@ export const useMainStore = defineStore('MainStore', {
             return ((new Set(this.friends)).size !== this.friends.length)
         },
 
-        addInputProd() {
+        addInputProducts() {
             this.products.push({
                 name: '',
                 price: null,
@@ -27,7 +27,7 @@ export const useMainStore = defineStore('MainStore', {
                 eatPersons: []
             });
         },
-        deleteInputProd(index) {
+        deleteInputProducts(index) {
             this.products.splice(index, 1)
         },
 

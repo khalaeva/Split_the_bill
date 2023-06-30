@@ -12,7 +12,7 @@
                     :value="false" 
                     v-model="check" 
                     checked
-                    >
+                >
                 <label for="fid-1">Кто - кому</label>
             </div>
             <div class="form_toggle-item item-2">
@@ -22,7 +22,7 @@
                     name="radio" 
                     :value="true" 
                     v-model="check"
-                    >
+                >
                 <label for="fid-2">Кому - кто</label>
             </div>
         </div>
