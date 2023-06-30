@@ -88,7 +88,7 @@
                 type="button" 
                 class="btn btn-light main-add_friend-btn"
                 v-show="mainStore.products.length"
-                >
+            >
                 Рассчитать   
             </button>
         </RouterLink>

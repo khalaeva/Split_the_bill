@@ -42,7 +42,7 @@
         <ul v-show="check"
             class="list-group"
             v-for="(person, index) in mainStore.whom"
-            >
+        >
             <li class="list-group-item" style="margin-bottom: 10px">
                 <div class="input-group">
                     <h5 style="color: #102542">Пользователю {{ index }} должны</h5>
